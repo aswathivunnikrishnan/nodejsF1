@@ -1,0 +1,46 @@
+{
+    "user1": {
+        "id": 1,
+        "username": "aswathy",
+        "name": "Aswathy V",
+        "phonenumber": 1234567890,
+        "email": "asw@gmail.com",
+        "password": "aswathy"
+    },
+  
+    "user2":  {
+        "id": 2,
+        "username": "athira",
+        "name": "Athira",
+        "phonenumber": 2134567890,
+        "email": "athira@gmail.com",
+        "password": "athira"
+    },
+  
+    "user3":  {
+        "id": 3,
+        "username": "adithyan",
+        "name": "Adithyan",
+        "phonenumber": 2147483647,
+        "email": "adithyan@gmail.com",
+        "password": "adithyan"
+    },
+  
+    "user4": {
+        "id": 4,
+        "username": "bindhu",
+        "name": "Bindhu",
+        "phonenumber": 2147483647,
+        "email": "bindhu@gmail.com",
+        "password": "bindhu"
+    },
+
+    "user6":{
+        "id": 6,
+        "username": "unnikrishnan",
+        "name": "Unnikrishnan_V",
+        "phonenumber": 2147483647,
+        "email": "unnikrishnan@gmail.com",
+        "password": "unnikrishnan"
+    }
+  }
