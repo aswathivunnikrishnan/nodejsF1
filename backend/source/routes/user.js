@@ -1,7 +1,14 @@
 const Router = require('express');
-const router = Router();
+const router = Router(); 
+const bodyParser = require('body-parser');
+// const session = require('express-session');
+// // const path = require('path')
 
 const con = require('../database/database');
+
+// router.get('/', function(request, response) {
+// 	response.sendFile(path.join(__dirname + '/login.dart'));
+// });
 
 
 router.get('/',(req,res)=>{
@@ -32,21 +39,6 @@ router.get('/:users/:id',(req,res)=>{
     } )
 })
 
-// router.post('/userRegistration',(req,res)=>
-// {
-//     const {id, username, name, phonenumber, email, password} = req.body;
-//     console.log(req.body);
-//     con.query('insert into user(id, username, name, phonenumber, email, password) values(?,?,?,?,?,?);',
-//     [id,username,name,phonenumber,email,password], (error,rows,fields)=>{
-//         if(!error){
-//             res.json({Status: 'success'});
-//         }
-//         else{
-//             console.log(error);
-//         }
-//     });
-// });
-
 router.post('/userRegistration',(req,res)=>
 {
     const {id, username, name, phonenumber, email, password} = req.body;
@@ -62,64 +54,59 @@ router.post('/userRegistration',(req,res)=>
     });
 });
 
+// router.post('/userLogin',(req,res)=>
+// {
+//     const {username, password} = req.body;
+//     console.log(req.body);
+//     con.query('SELECT * FROM user WHERE username = ?, password = ?',
+//     [username, password], (error,result)=>{
+//     // const login=quiz_project.findOne({
+//     //     username:req.body.username
 
-router.post('/userLogin',(req,res)=>
-{
-    const {username, password} = req.body;
-    console.log(req.body);
-    con.query('insert into user(username, password) values(?,?);',
-    [username, password], (error,rows,fields)=>{
-        if(!error){
-            res.json({Status: 'success'});
-        }
-        else{
-            console.log(error);
-        }
-    });
+//     // })
+//     if(!error){
+//         return res.status(200).send({Status:'success'});
+//         }
+//         else{
+//             res.console(error);
+//         }
+//         // else{
+//         //     return res.status(200).send({Status:'success'});
+
+//         // }
+//      });
+// }
+// );
+
+
+router.post('/userLogin', function(req, res) {
+	const username = req.body.username;
+	const password = req.body.password;
+	if (username && password) {
+		con.query('SELECT * FROM user WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				req.username = username;
+				
+                return res.status(200).send({Status:'success'});
+
+			} else {
+				res.send({error:error}) ;
+			}			
+			res.end();
+		});
+	} else {
+		res.send('Please enter Username and Password!');
+		res.end();
+	}
 });
 
 
-/*app.post('/userRegistration',(req, res) => {
-    var POST_QUERY = {
-      username: req.body.username,
-      name:req.body.name,
-      phonenumber: body.phonenumber,
-      email: body.email,
-      password: req.body.password
-    }
-    if (!POST_QUERY) {
-      return res.status(400).send({ err: true, message: 'Please username' });
-    }
-  
-    let query = `INSERT INTO user (id, username, name, phonenumber, email, password) VALUES (''${POST_QUERY.id}','${POST_QUERY.username}',${POST_QUERY.name}','${POST_QUERY.phonenumber}','${POST_QUERY.email}','${POST_QUERY.password}')`;
-  
-    con.query(query,function(err,results) {
-      if(err){
-        console.log(err);
-      } else {
-        return res.status(200).json({"status": 200,"err": null,"response": results});
-      }    
-    });
-  }); 
-*/
 
-/*
-router.put('/:users/:id',(req,res)=>{
-    const {id, username, name, phonenumber, email, password} = req.body;
-    console.log(req.body);
-    con.query('update user set username=?, name=?, phonenumber=?, email=?, password=?, where id =? ;',
-    [username,name,phonenumber,email,password,id], (error,rows,fields)=>{
-        if(!error){
-            res.json({Status: 'User updated'});
-        }
-        else{
-            console.log(error);
-        }
-    });
-})
-*/
 
-router.delete("/:users/:id", (req,res)=>{
+
+
+
+router.delete("/:userDelete/:id", (req,res)=>{
     const {id} = req.params ;
     con.query('delete from user where id = ?;',[id],(error, rows, fields)=>{
         if(!error){
@@ -133,10 +120,6 @@ router.delete("/:users/:id", (req,res)=>{
 });
 
 module.exports = router;
-
-
-
-
 
 
 
