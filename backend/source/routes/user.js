@@ -1,7 +1,7 @@
 const Router = require('express');
 const router = Router(); 
-const bodyParser = require('body-parser');
-// const session = require('express-session');
+const bodyParser = require('body-parser'); 
+const session = require('express-session');
 // // const path = require('path')
 
 const con = require('../database/database');
