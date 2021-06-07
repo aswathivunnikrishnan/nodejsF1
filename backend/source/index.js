@@ -8,6 +8,7 @@ app.set('port', process.env.PORT ||8000);
 //middlewares
 app.use(express.json());
 
+
 //routes
 app.use(require('./routes/user'));
 
